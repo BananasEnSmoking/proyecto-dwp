@@ -25,7 +25,6 @@ export const Home: React.FC = () =>{
         "password":"",
         "rePassword":""
     });
-    const [token,setToken] = React.useState();
 
     const reRef:any = React.useRef<ReCAPTCHA>();
 
@@ -100,7 +99,6 @@ export const Home: React.FC = () =>{
     const handleOnSubmit= async (e:React.FormEvent)=> {
         e.preventDefault();
         const tokenF = await reRef.current.getValue(); 
-        setToken(tokenF);
         isHuman(tokenF)
         reRef.current.reset();
        
