@@ -158,7 +158,7 @@ export const Home: React.FC = () =>{
                 <Form.Row>
                     <Form.Group as={Col} xs={12} md={6} lg={4}>
                         <Form.Label>
-                            Telefono
+                            Teléfono
                         </Form.Label>
                         <Form.Control  type="tel" name='telefono' pattern="[\()]?(\+52|52)?[\)]?[ -]*([0-9][ -]*){10}" onChange={handleOnChange} title="Numero de Mexico a 10 digitos puede incluir +52" placeholder="Telefono" required />
                         <Form.Text className="text-muted">
@@ -175,13 +175,13 @@ export const Home: React.FC = () =>{
                 <Form.Row>
                 <Form.Group as={Col} xs={12} md={6} lg={4}>
                         <Form.Label>
-                            Contrasena
+                            Contraseña
                         </Form.Label>
                         <Form.Control type="password" name='password' onChange={handleOnChange} pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" placeholder="Contrasena" required/>
                     </Form.Group>
                     <Form.Group as={Col} xs={12} md={6} lg={4}>
                         <Form.Label>
-                            Confirmar Contrasena
+                            Confirmar Contraseña
                         </Form.Label>
                         <Form.Control  type="password" name='rePassword' onChange={handleOnChange} pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" placeholder="Contrasena" required/>
                     </Form.Group>
