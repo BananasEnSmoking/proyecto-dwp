@@ -10,28 +10,54 @@ import ReCAPTCHA from "react-google-recaptcha";
 
 
 export const Home: React.FC = () =>{
+    var urlApiCreateUser = "http://35.167.62.109/storeutags/security/create_account";
     const [robot,setRobot] = React.useState(false);
     const [modalHeader,setModalHeader] = React.useState("");
     const [modalTitle,setModalTitle] = React.useState("");
     const [modalMessage,setModalMessage] = React.useState("");
     const [formData,setFormData] = React.useState({
-        "nombre":"",
-        "apellidoPaterno":"",
-        "apellidoMaterno":"",
-        "ciudad":"",
-        "estado":"",
-        "telefono":"",
-        "correo":"",
+        "first_name":"",
+        "middle_name":"",
+        "last_name":"",
+        "phone_number":"",
+        "address":{
+            "city": "",
+            "state":""
+        },
+        "email":"",
         "password":"",
-        "rePassword":""
+        "password_confirmation":""
     });
 
     const reRef:any = React.useRef<ReCAPTCHA>();
 
     const handleOnChange =(e:any)=>{
+        if(e.currentTarget.name === 'city' || e.currentTarget.name === 'state'){
+            setFormData({
+                ...formData, address: {...formData.address,[e.currentTarget.name]:e.currentTarget.value}
+            })
+        }else{
         setFormData({
             ...formData,[e.currentTarget.name]:e.currentTarget.value
         })
+    }
+    }
+
+    async function createUser(){
+        try {
+            const body = JSON.stringify(formData);
+            const response = await fetch(urlApiCreateUser, { method: 'POST' , mode:"cors", headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin':'*'
+              }, body: body});
+              if(response.status === 204 || response.status === 200){
+                  setModalMessage("Listo")
+              }
+        } catch (error) {
+            console.log(error)
+        }
+       
     }
 
     async function isHuman(humanKey:string){
@@ -55,9 +81,10 @@ export const Home: React.FC = () =>{
             }
             if(res.success){
                 setModalHeader("Bannana");
-                setModalTitle("Christian Modal Bannana");
-                setModalMessage("Enviando su info con la api del profe");
+                setModalTitle("Enviando...");
+                setModalMessage("Enviando...");
                 setRobot(true)
+                createUser()
             }
         }catch(e){
             console.log(e)
@@ -67,6 +94,10 @@ export const Home: React.FC = () =>{
     const closeRobotModal =()=>{
         setRobot(false)
     }
+
+    React.useEffect(()=>{
+        
+    },[modalHeader,modalMessage,modalTitle])
 
     const RobotModal =(props:any)=>{
         return (
@@ -98,10 +129,13 @@ export const Home: React.FC = () =>{
 
     const handleOnSubmit= async (e:React.FormEvent)=> {
         e.preventDefault();
+        if( formData.password === formData.password_confirmation){
         const tokenF = await reRef.current.getValue(); 
         isHuman(tokenF)
-        reRef.current.reset();
-       
+        reRef.current.reset();  
+        }else{
+            console.log("erorr pass")
+        }
     }
 
     return (
@@ -124,19 +158,19 @@ export const Home: React.FC = () =>{
                         <Form.Label>
                             Nombre
                         </Form.Label>
-                        <Form.Control  name='nombre' onChange={handleOnChange} placeholder="Nombre" required/>
+                        <Form.Control  name='first_name' onChange={handleOnChange} placeholder="Nombre" required/>
                     </Form.Group>
                     <Form.Group as={Col} xs={12} md={6} lg={4}>
                         <Form.Label>
                             Apellido Paterno
                         </Form.Label>
-                        <Form.Control  name='apellidoPaterno' onChange={handleOnChange} placeholder="Apellido paterno" required/>
+                        <Form.Control  name='middle_name' onChange={handleOnChange} placeholder="Apellido paterno" required/>
                     </Form.Group>
                     <Form.Group as={Col} xs={12} md={6} lg={4}>
                         <Form.Label>
                             Apellido Materno
                         </Form.Label>
-                        <Form.Control  name='apellidoMaterno' onChange={handleOnChange} placeholder="Apellido materno" required/>
+                        <Form.Control  name='last_name' onChange={handleOnChange} placeholder="Apellido materno" required/>
                     </Form.Group>
                 </Form.Row>
 
@@ -145,13 +179,13 @@ export const Home: React.FC = () =>{
                         <Form.Label>
                             Ciudad
                         </Form.Label>
-                        <Form.Control  name='ciudad' onChange={handleOnChange} placeholder="Apellido paterno" required/>
+                        <Form.Control  name='city' onChange={handleOnChange} placeholder="Ciudad" required/>
                     </Form.Group>
                     <Form.Group as={Col} xs={12} md={6} lg={4}>
                         <Form.Label>
                             Estado
                         </Form.Label>
-                        <Form.Control  name='estado' onChange={handleOnChange} placeholder="Apellido materno" required/>
+                        <Form.Control  name='state' onChange={handleOnChange} placeholder="Estado" required/>
                     </Form.Group>
                 </Form.Row>
 
@@ -160,7 +194,7 @@ export const Home: React.FC = () =>{
                         <Form.Label>
                             Teléfono
                         </Form.Label>
-                        <Form.Control  type="tel" name='telefono' pattern="[\()]?(\+52|52)?[\)]?[ -]*([0-9][ -]*){10}" onChange={handleOnChange} title="Numero de Mexico a 10 digitos puede incluir +52" placeholder="Telefono" required />
+                        <Form.Control  type="tel" name='phone_number' pattern="[\()]?(\+52|52)?[\)]?[ -]*([0-9][ -]*){10}" onChange={handleOnChange} title="Numero de Mexico a 10 digitos puede incluir +52" placeholder="Telefono" required />
                         <Form.Text className="text-muted">
                         Ejemplos: 449 295 45 66  o +52 449 29545 66
                         </Form.Text>
@@ -169,7 +203,7 @@ export const Home: React.FC = () =>{
                         <Form.Label>
                             Correo
                         </Form.Label>
-                        <Form.Control type="email" name='correo' onChange={handleOnChange} placeholder="Correo electronico" required/>
+                        <Form.Control type="email" name='email' onChange={handleOnChange} placeholder="Correo electronico" required/>
                     </Form.Group>
                 </Form.Row>
                 <Form.Row>
@@ -177,13 +211,16 @@ export const Home: React.FC = () =>{
                         <Form.Label>
                             Contraseña
                         </Form.Label>
-                        <Form.Control type="password" name='password' onChange={handleOnChange} pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" placeholder="Contrasena" required/>
+                        <Form.Control type="password" name='password' onChange={handleOnChange} pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" title="La contrasena debe tener almenos una letra MAYUSCULA un NUMERO y un tamano minimo de 8 caracteres" placeholder="Contrasena" required/>
                     </Form.Group>
                     <Form.Group as={Col} xs={12} md={6} lg={4}>
                         <Form.Label>
                             Confirmar Contraseña
                         </Form.Label>
-                        <Form.Control  type="password" name='rePassword' onChange={handleOnChange} pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" placeholder="Contrasena" required/>
+                        <Form.Control  type="password" name='password_confirmation' onChange={handleOnChange} pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" title="La contrasena debe tener almenos una letra MAYUSCULA un NUMERO y un tamano minimo de 8 caracteres" placeholder="Contrasena" required/>
+                        <Form.Text className="text-muted">
+                        Debe coincidir con el password que ingreso anteriormente
+                        </Form.Text>
                     </Form.Group>
                 </Form.Row>
                 <Form.Row>
