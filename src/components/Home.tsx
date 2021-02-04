@@ -44,10 +44,9 @@ export const Home: React.FC = () =>{
     async function createUser(){
         try {
             const body = JSON.stringify(formData);
-            const response = await fetch(urlApiCreateUser, { method: 'POST', mode:'cors', headers: {
+            const response = await fetch(urlApiCreateUser, { method: 'POST', headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin':'*'
               }, body: body});
               if(response.status === 204 || response.status === 200){
                   setModalMessage("Listo")
@@ -62,7 +61,6 @@ export const Home: React.FC = () =>{
         try{
         const respuesta = await fetch(`https://www.google.com/recaptcha/api/siteverify`,{
             method: "POST",
-            mode:"no-cors",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
