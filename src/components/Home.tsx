@@ -69,7 +69,7 @@ export const Home: React.FC = () =>{
               body: `secret=${SECRET_RECAPTCHA_KEY}&response=${humanKey}`
             });
             console.log(respuesta)
-            /*const res = await respuesta.json();
+            const res = await respuesta.json();
             console.log(res)
             if(!res.success){
                 setModalHeader("Robot");
@@ -83,7 +83,7 @@ export const Home: React.FC = () =>{
                 setModalMessage("Enviando...");
                 setRobot(true)
                 createUser()
-            }*/
+            }
         }catch(e){
             console.log(e)
         }
