@@ -71,13 +71,13 @@ export const Home: React.FC = () =>{
             console.log(respuesta)
             const res = await respuesta.json();
             console.log(res)
-            if(!res.success){
+            if(!res){
                 setModalHeader("Robot");
                 setModalTitle("Christian Modal Robot");
                 setModalMessage("Usted no es una bannana");
                 setRobot(true)
             }
-            if(res.success){
+            if(res){
                 setModalHeader("Bannana");
                 setModalTitle("Enviando...");
                 setModalMessage("Enviando...");
