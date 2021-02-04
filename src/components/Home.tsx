@@ -46,10 +46,9 @@ export const Home: React.FC = () =>{
     async function createUser(){
         try {
             const body = JSON.stringify(formData);
-            const response = await fetch(urlApiCreateUser, { method: 'POST' , mode:"no-cors", headers: {
+            const response = await fetch(urlApiCreateUser, { method: 'POST', headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                
               }, body: body});
               if(response.status === 204 || response.status === 200){
                   setModalMessage("Listo")
