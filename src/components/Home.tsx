@@ -57,7 +57,7 @@ export const Home: React.FC = () =>{
        
     }
 
-    async function isHuman(humanKey:string){
+  /*  async function isHuman(humanKey:string){
         try{
         const respuesta = await fetch(`https://www.google.com/recaptcha/api/siteverify`,{
             method: "POST",
@@ -87,6 +87,7 @@ export const Home: React.FC = () =>{
             console.log(e)
         }
     }
+    */
 
     const closeRobotModal =()=>{
         setRobot(false)
@@ -126,8 +127,20 @@ export const Home: React.FC = () =>{
 
     const handleOnSubmit= async (e:React.FormEvent)=> {
         e.preventDefault();
-        const tokenF = await reRef.current.getValue(); 
-        isHuman(tokenF)
+        const tokenF = await reRef.current.getValue();
+        if(tokenF){
+            setModalHeader("Bannana");
+                setModalTitle("Enviando...");
+                setModalMessage("Enviando...");
+                setRobot(true)
+                createUser()
+        } else{
+            setModalHeader("Robot");
+                setModalTitle("Christian Modal Robot");
+                setModalMessage("Usted no es una bannana");
+                setRobot(true)
+        }
+        //isHuman(tokenF)
         reRef.current.reset();  
         
     }
