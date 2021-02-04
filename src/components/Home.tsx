@@ -7,8 +7,6 @@ import { PUBLIC_RECAPTCHA_KEY, SECRET_RECAPTCHA_KEY } from "../ReCAPTCHAKeys";
 import ReCAPTCHA from "react-google-recaptcha";
 
 
-
-
 export const Home: React.FC = () =>{
     var urlApiCreateUser = "http://35.167.62.109/storeutags/security/create_account";
     const [robot,setRobot] = React.useState(false);
@@ -63,13 +61,13 @@ export const Home: React.FC = () =>{
         try{
         const respuesta = await fetch(`https://www.google.com/recaptcha/api/siteverify`,{
             method: "POST",
-            mode: "cors",
+            mode: 'no-cors',
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
               },
               body: `secret=${SECRET_RECAPTCHA_KEY}&response=${humanKey}`
-            })
+            });
             const res = await respuesta.json();
             console.log(res)
             if(!res.success){
@@ -87,6 +85,7 @@ export const Home: React.FC = () =>{
             }
         }catch(e){
             console.log(e)
+            console.log('hola papi')
         }
     }
 
@@ -105,8 +104,8 @@ export const Home: React.FC = () =>{
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
-      
     >
+
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           {modalHeader}
@@ -128,13 +127,9 @@ export const Home: React.FC = () =>{
 
     const handleOnSubmit= async (e:React.FormEvent)=> {
         e.preventDefault();
-        if( formData.password === formData.password_confirmation){
         const tokenF = await reRef.current.getValue(); 
         isHuman(tokenF)
         reRef.current.reset();  
-        }else{
-            console.log("erorr pass")
-        }
     }
 
     return (
