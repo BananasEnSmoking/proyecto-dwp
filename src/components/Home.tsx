@@ -68,7 +68,8 @@ export const Home: React.FC = () =>{
               },
               body: `secret=${SECRET_RECAPTCHA_KEY}&response=${humanKey}`
             });
-            const res = await respuesta.json();
+            console.log(respuesta)
+            /*const res = await respuesta.json();
             console.log(res)
             if(!res.success){
                 setModalHeader("Robot");
@@ -82,10 +83,9 @@ export const Home: React.FC = () =>{
                 setModalMessage("Enviando...");
                 setRobot(true)
                 createUser()
-            }
+            }*/
         }catch(e){
             console.log(e)
-            console.log('hola papi')
         }
     }
 
@@ -130,10 +130,7 @@ export const Home: React.FC = () =>{
         const tokenF = await reRef.current.getValue(); 
         isHuman(tokenF)
         reRef.current.reset();  
-<<<<<<< HEAD
-=======
         
->>>>>>> 49a2cce2b21fc128073a6eeb57f749d869c76de4
     }
 
     return (
