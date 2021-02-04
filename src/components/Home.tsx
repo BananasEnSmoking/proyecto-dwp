@@ -128,13 +128,10 @@ export const Home: React.FC = () =>{
 
     const handleOnSubmit= async (e:React.FormEvent)=> {
         e.preventDefault();
-        if( formData.password === formData.password_confirmation){
         const tokenF = await reRef.current.getValue(); 
         isHuman(tokenF)
         reRef.current.reset();  
-        }else{
-            console.log("erorr pass")
-        }
+        
     }
 
     return (
