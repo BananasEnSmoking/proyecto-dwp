@@ -61,10 +61,10 @@ export const Home: React.FC = () =>{
         try{
         const respuesta = await fetch(`https://www.google.com/recaptcha/api/siteverify`,{
             method: "POST",
-            mode: 'no-cors',
+            mode: 'cors',
             headers: {
                 Accept: "application/json",
-                "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
+                "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",'Access-Control-Allow-Origin':'*'
               },
               body: `secret=${SECRET_RECAPTCHA_KEY}&response=${humanKey}`
             });
