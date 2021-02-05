@@ -2,7 +2,7 @@ import * as React from "react";
 import { Form, Button,Col, Modal } from "react-bootstrap";
 import { FormCard } from "../UI/FormCard";
 
-import { PUBLIC_RECAPTCHA_KEY, SECRET_RECAPTCHA_KEY } from "../ReCAPTCHAKeys";
+import { PUBLIC_RECAPTCHA_KEY} from "../ReCAPTCHAKeys";
 
 import ReCAPTCHA from "react-google-recaptcha";
 
