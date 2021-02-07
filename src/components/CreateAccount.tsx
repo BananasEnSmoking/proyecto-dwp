@@ -7,7 +7,7 @@ import { PUBLIC_RECAPTCHA_KEY} from "../ReCAPTCHAKeys";
 import ReCAPTCHA from "react-google-recaptcha";
 
 
-export const Home: React.FC = () =>{
+export const CreateAccount: React.FC = () =>{
     var urlApiCreateUser = "http://35.167.62.109/storeutags/security/create_account";
     const [robot,setRobot] = React.useState(false);
     const [modalHeader,setModalHeader] = React.useState("");
@@ -48,14 +48,21 @@ export const Home: React.FC = () =>{
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
               }, body: body});
-              if(response.status === 204 || response.status === 200){
-                  setModalMessage("Listo")
-              }
+
+              const res = await response.json();
+            if(res.status === "success"){
+                setModalMessage("Listo")
+            }
+              
         } catch (error) {
             console.log(error)
         }
        
     }
+
+    /**
+     * La siguiente funcion deberia realizarse en el backend porque no tiene sentido dar la llave privada de nuestra validacion de captcha en el front
+     */
 
   /*  async function isHuman(humanKey:string){
         try{
@@ -129,11 +136,18 @@ export const Home: React.FC = () =>{
         e.preventDefault();
         const tokenF = await reRef.current.getValue();
         if(tokenF){
-            setModalHeader("Bannana");
+                setModalHeader("Bannana");
                 setModalTitle("Enviando...");
                 setModalMessage("Enviando...");
-                setRobot(true)
+                setRobot(true);
+                if(formData.password === formData.password_confirmation){
                 createUser()
+                }else{
+                setModalHeader("Error");
+                setModalTitle("Password");
+                setModalMessage("El password que ingreso no coincide");
+                setRobot(true);
+                }
         } else{
             setModalHeader("Robot");
                 setModalTitle("Christian Modal Robot");
@@ -142,7 +156,6 @@ export const Home: React.FC = () =>{
         }
         //isHuman(tokenF)
         reRef.current.reset();  
-        
     }
 
     return (

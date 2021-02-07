@@ -31,7 +31,7 @@ export const Footer: React.FC = () =>{
                 </Col>
                 </Row>
                 <p className="parrafo derechos">
-                    &copy;{new Date().getFullYear()} Bananas en smoking - Todos los derechos reservados
+                    &copy;{new Date().getFullYear()} Bananas en smoking - All rights reserved
                 </p>
             </Container>
             </FooterS>
