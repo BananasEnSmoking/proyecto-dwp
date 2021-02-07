@@ -173,6 +173,11 @@ export const CreateAccount: React.FC = () =>{
      */}
         <FormCard>
             <Form className="form" onSubmitCapture={handleOnSubmit}>
+            <Form.Row className="justify-content-md-center">
+                        <Form.Group>
+                            <h1>Create account</h1>
+                        </Form.Group>
+                    </Form.Row>
                 <Form.Row>
                     <Form.Group as={Col} xs={12} md={6} lg={4}>
                         <Form.Label>
@@ -245,7 +250,7 @@ export const CreateAccount: React.FC = () =>{
                 </Form.Row>
                 <Form.Row>
                 <Form.Group as={Col} xs={12} md={6} lg={4}>
-                <Button  variant="primary" type="submit">Enviar</Button>
+                <Button block variant="primary" type="submit">Submit</Button>
                 </Form.Group>
                 <Form.Group as={Col} xs={12} md={6} lg={4}>
                 <ReCAPTCHA 

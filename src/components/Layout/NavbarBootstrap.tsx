@@ -1,4 +1,5 @@
 import * as React from "react";
+import logo from '../../img logo/isotipo/BES I11.png';
 import { Button, Navbar, Nav, Form, FormControl } from 'react-bootstrap';
 
 import { Link } from "react-router-dom";
@@ -13,14 +14,12 @@ export const NavbarBootstrap: React.FC = () =>{
           * las rutas deberan ser protegidas al momento de crear el usuario
           * por el momento todas estaran disponibles
           */}
-       <Navbar.Brand as={Link} to="/">LOGO</Navbar.Brand>
+       <Navbar.Brand as={Link} to="/"><img src={logo} className="App-logo" alt=""/></Navbar.Brand>
        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
        <Navbar.Collapse id="responsive-navbar-nav">
        <Nav className="mr-auto">
          <Nav.Link as={Link} to="/createAccount">Create Account</Nav.Link>
          <Nav.Link as={Link} to="/login">Login</Nav.Link>
-         <Nav.Link as={Link} to="/forgotPsw">Forgot Password</Nav.Link>
-         <Nav.Link as={Link} to="/recoveryPsw">Recovery Password</Nav.Link>
        </Nav>
        </Navbar.Collapse>
        <Form inline>
