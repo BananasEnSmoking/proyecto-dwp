@@ -4,6 +4,13 @@ import styled from "styled-components";
 import '../App.css';
 
 export const FooterS = styled('div')`
+@media (min-width: 800px) {
+position: absolute;
+bottom: 0;
+width: 100%;
+  }
+
+
 .titulo{
     color: var(--blanquito);
 }
@@ -13,11 +20,11 @@ export const FooterS = styled('div')`
 }
 
 .derechos{
-    padding-top: 2rem;
-    padding-bottom: 3rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
-padding-top: 3rem;
+padding-top: 1rem;
 background-color: var(--oscurito);
 `;
 

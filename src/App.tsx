@@ -12,8 +12,10 @@ import { NavbarBootstrap } from "./components/Layout/NavbarBootstrap";
 import { Footer } from "./components/Layout/Footer";
 
 //componentes router
-import { Home } from "./components/Home";
-import { Features } from "./components/Features";
+import { CreateAccount } from "./components/CreateAccount";
+import { Login } from "./components/Login";
+import { ForgotPassword } from "./components/RecoveryPassword/ForgotPassword";
+import { RecoveryPassword } from "./components/RecoveryPassword/RecoveryPassword";
 
 function App(): JSX.Element {
   return (
@@ -22,9 +24,11 @@ function App(): JSX.Element {
         <NavbarBootstrap />
        <Container>
           <Switch>
-            <Route exact={true} path="/" component={Home}/>
-            <Route exact={true} path="/F" component={Features}/>
-            <Route exact={true} path="/nv" component={Home}/>
+            <Route exact={true} path="/" component={CreateAccount}/>
+            <Route exact={true} path="/login" component={Login}/>
+            <Route exact={true} path="/createAccount" component={CreateAccount}/>
+            <Route exact={true} path="/forgotPsw" component={ForgotPassword}/>
+            <Route exact={true} path="/recoveryPsw/:email" component={RecoveryPassword}/>
           </Switch>
        </Container>
       </Router>
