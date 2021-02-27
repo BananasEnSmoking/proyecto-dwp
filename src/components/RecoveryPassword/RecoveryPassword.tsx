@@ -45,7 +45,6 @@ export const RecoveryPassword: React.FC = () =>{
                 'Content-Type': 'application/json',
               }, body: body});
               const jres = await response.json()
-              console.log(jres.status)
               if(jres.status === "success"){
                 history.push(`/login`);
               }else{
