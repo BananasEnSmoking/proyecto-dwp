@@ -15,26 +15,23 @@ export const Footer: React.FC = () =>{
                 {/* Para modificar los estilos ver archivo src/UI/Footer.tsx */}
                 <Col xs={12} md={6} lg={4}>
                     <h4 className="titulo">Team</h4>
-                    <p className="parrafo">
-                    <ul>
+                    <ul className="parrafo">
                         <li>David</li>
                         <li>Chris</li>
                         <li>Jona</li>
                         <li>Caro</li>
                     </ul>
-                    </p> 
                 </Col>
                  {/* Segunda columna del Footer */}
                  <Col xs={12} md={6} lg={4}>
                     <h4 className="titulo">Desarrollo web Profesional</h4>
                     <p className="parrafo">
-                    <p>
                     Profesor: OSCAR VILLAREAL SALAZAR
                     </p>
-                    <p>
+                    <p className="parrafo">
                     Profesor: JUAN JOSE BALDERAS ARRIAGA
                     </p>
-                    </p>                 </Col>
+                    </Col>
                  {/* Tercera columna del Footer */}
                 <Col xs={12} md={6} lg={4}>
                     <h4 className="titulo">We are BES</h4>
