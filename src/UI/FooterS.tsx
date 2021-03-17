@@ -5,7 +5,6 @@ import '../App.css';
 
 export const FooterS = styled('div')`
 @media (min-width: 800px) {
-position: absolute;
 bottom: 0;
 width: 100%;
   }

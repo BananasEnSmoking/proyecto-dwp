@@ -23,7 +23,8 @@ function App(): JSX.Element {
     <React.Fragment>
       <Router>
         <NavbarBootstrap />
-       <Container>
+        
+       <Container style={{ height: '100%' }}>
           <Switch>
             <Route exact={true} path="/" component={HomeDepot}/>
             <Route exact={true} path="/login" component={Login}/>
@@ -33,7 +34,7 @@ function App(): JSX.Element {
           </Switch>
        </Container>
       </Router>
-      <Footer/>
+      
     </React.Fragment>
   );
 }

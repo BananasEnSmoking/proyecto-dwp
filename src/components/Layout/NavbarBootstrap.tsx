@@ -34,10 +34,6 @@ export const NavbarBootstrap: React.FC = () =>{
          {customer.first_name !== null && customer.first_name !== undefined?<Nav style={{ color:"#f3d75a" }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Welcome&nbsp;{customer.first_name}&nbsp;&nbsp;&nbsp;</Nav>:<Nav.Link as={Link} to="/login">Login</Nav.Link>}
        </Nav>
        </Navbar.Collapse>
-       <Form inline>
-         <FormControl type="text" placeholder="do you want a banana?" className="mr-sm-2" />
-         <Button variant="outline-info">Search</Button>
-       </Form>
      </Navbar>
         
       </React.Fragment>

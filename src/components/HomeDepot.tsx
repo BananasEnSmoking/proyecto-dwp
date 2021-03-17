@@ -1,15 +1,11 @@
 import * as React from "react";
-import { Button } from "react-bootstrap";
+import { Productos } from "./Productos/Productos";
 
 export const HomeDepot: React.FC =()=>{
-    const cerrar =()=>{
-        localStorage.clear()
-    }
+    
     return(
         <React.Fragment>
-           <Button onClick={cerrar}>
-               Cerrar sesión
-           </Button>
+           <Productos />
         </React.Fragment>
     )
 }
