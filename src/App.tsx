@@ -17,6 +17,9 @@ import { Login } from "./components/Login";
 import { ForgotPassword } from "./components/RecoveryPassword/ForgotPassword";
 import { RecoveryPassword } from "./components/RecoveryPassword/RecoveryPassword";
 import { HomeDepot } from "./components/HomeDepot";
+import { ProductDetails } from "./components/Productos/ProductDetails";
+import { Carrito } from './components/Carrito/Carrito';
+import { Pago } from './components/Carrito/Pago';
 
 function App(): JSX.Element {
   return (
@@ -31,6 +34,9 @@ function App(): JSX.Element {
             <Route exact={true} path="/createAccount" component={CreateAccount}/>
             <Route exact={true} path="/forgotPsw" component={ForgotPassword}/>
             <Route exact={true} path="/recoveryPsw/:email" component={RecoveryPassword}/>
+            <Route exact={true} path="/ProductDetails/:itemId" component={ProductDetails}/>
+            <Route exact={true} path="/showCarrito" component={Carrito}/>
+            <Route exact={true} path="/pago" component={Pago}/>
           </Switch>
        </Container>
       </Router>

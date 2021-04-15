@@ -1,5 +1,6 @@
 import React, * as react from "react";
 import { Card, Row, Col, InputGroup,Form,FormControl,Button, FormGroup } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 
 export const Productos:React.FC=()=>{
@@ -8,11 +9,17 @@ export const Productos:React.FC=()=>{
     const urlByCategories="http://35.167.62.109/storeutags/catalogs/items/by_category/" 
 
     const [busqueda,setBusqueda]= React.useState<any>();
+    
     const [items,setItems]= React.useState<any>(null)
+
     const [categories,setCategories]=React.useState<any>(null)
+
     const [checkCategories,setCheckCategories]= React.useState<any>()
 
     async function getCategories() {
+        //Funcion asincrona, await para esperar la respuesta
+        //Funcion fetch 
+       
         try {
             const response = await fetch(urlCategories,{ method:'GET', headers:{
                 'Accept': 'application/json',
@@ -130,7 +137,7 @@ export const Productos:React.FC=()=>{
                            <Card style={{ width: '22rem', margin:".5rem" }} >
                            <Card.Img variant="top" src={item.images_small} />
                            <Card.Body>
-                             <Card.Title>{item.short_description}</Card.Title>
+                             <Card.Title><Link to={`/ProductDetails/${item.product_id}`}>{item.short_description}</Link></Card.Title>
                              <Card.Text>
                                {item.long_description}
                              </Card.Text>
@@ -139,7 +146,6 @@ export const Productos:React.FC=()=>{
                          </Card>
                            </Col>
                         }):''}
-                        
                         </Row>
                     </Card>
                     </Col>
