@@ -20,6 +20,7 @@ import { HomeDepot } from "./components/HomeDepot";
 import { ProductDetails } from "./components/Productos/ProductDetails";
 import { Carrito } from './components/Carrito/Carrito';
 import { Pago } from './components/Carrito/Pago';
+import { Order } from './components/Carrito/Order';
 
 function App(): JSX.Element {
   return (
@@ -37,6 +38,7 @@ function App(): JSX.Element {
             <Route exact={true} path="/ProductDetails/:itemId" component={ProductDetails}/>
             <Route exact={true} path="/showCarrito" component={Carrito}/>
             <Route exact={true} path="/pago" component={Pago}/>
+            <Route exact={true} path="/order" component={Order}/>
           </Switch>
        </Container>
       </Router>

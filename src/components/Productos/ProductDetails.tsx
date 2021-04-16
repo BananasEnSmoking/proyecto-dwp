@@ -87,6 +87,10 @@ const closeModal =()=>{
     setShowModal(false)
 }
 
+const handleQuan =(e:any)=>{
+setAddDetails({...addDetails,['item_quantity']:e.currentTarget.value})
+}
+
 
     return <React.Fragment>
         <Modal
@@ -139,7 +143,7 @@ const closeModal =()=>{
                        </p>:''}
                        
                        Cant.
-                       <input type="number" style={{ width: '60px'}} value={1} disabled></input>
+                       <input type="number" style={{ width: '60px'}} value={addDetails.item_quantity}  onChange={handleQuan}></input>
                        <br/> 
                         <Button variant='warning' onClick={handleOnClickAdd}>Agregar al Carrito</Button>
                        <br/>

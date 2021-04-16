@@ -95,6 +95,34 @@ export const Carrito:React.FC=()=>{
           
       }
 
+
+      async function eliminar(item:any) {
+        try {
+            const body = JSON.stringify({
+                "session_id":localStorage.token,
+          "item_id":item,
+            });
+            const response = await fetch(urlDelete, { method: 'DELETE', headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              }, body: body});
+              console.log(response)
+              const res = await response.json();
+            if(res.status === "success"){
+              if(upd){
+                  setUpd(false)
+              }else{
+                  setUpd(true)
+              }
+              
+            }
+              
+        } catch (error) {
+            console.log(error)
+        }
+          
+      }
+
 const handleOnChangeNum =(e:any)=>{
 setDataUpdate({...dataUpdate,['item_quantity']:e.currentTarget.value})
 }
@@ -156,6 +184,8 @@ const RobotModal =(props:any)=>{
 
          }
 
+         
+
     return(
         <React.Fragment>
             <RobotModal
@@ -191,6 +221,8 @@ const RobotModal =(props:any)=>{
                                         <p>P. Unitario: {items.price}</p>
                                         <p>Cantidad: {items.quantity} <input type="number" onChange={handleOnChangeNum} min={0} defaultValue={0} name={items.product_id}/></p>
                                         <Button onClick={()=>act(items.product_id)}>Actualizar</Button>
+                                        
+                                        <Button style={{ margin:"5px" }} variant="danger" onClick={()=>eliminar(items.product_id)}>Eliminar</Button>
                                         <p>SubTotal: {items.sub_total}</p>
                                         </Col>
                                         <Col>

@@ -2,6 +2,7 @@
 import * as React from "react";
 import { Card,Row,Col } from 'react-bootstrap'
 import { PayPalButton } from "react-paypal-button-v2";
+import { Gracias } from "./Gracias";
 
 
 
@@ -16,9 +17,17 @@ export const Pago: React.FC =()=>{
     const [carro,setCarro]= React.useState<any>();
     const [dataCarro,setDataCarro]= React.useState<any>();
     const urlCarrito = 'http://35.167.62.109/storeutags/cart/get_details';
+    const urlOrderAdd = 'http://35.167.62.109/storeutags/order/create'
     const [token,setToken]= React.useState<any>({
         "session_id":localStorage.token
       })
+    const [detailsP,setDetailsP]= React.useState<any>(null)
+    const [order,setOrder]= React.useState<any>({
+      "session_id":token,
+      "paypal_payment_details":""
+    });
+  
+    
 
 
 
@@ -34,8 +43,29 @@ export const Pago: React.FC =()=>{
           if(res.status === "success"){
             setCarro(res.data.items)
             setDataCarro(res.data)
-            console.log(res.data.items)
-            console.log(res.data)
+            
+          }
+            
+      } catch (error) {
+          console.log(error)
+      }
+      }
+
+      async function addOrder(details:any) {
+        try {
+          const body = JSON.stringify({
+            "session_id":localStorage.token,
+            "paypal_payment_details":details
+        });
+          const response = await fetch(urlOrderAdd, { method: 'POST', headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            }, body: body});
+    
+            const res = await response.json();
+          if(res.status === "success"){
+            console.log('simon')
+            console.log(res)
           }
             
       } catch (error) {
@@ -47,8 +77,13 @@ export const Pago: React.FC =()=>{
         getCarrito()
     },[])
 
+   
+
     return <React.Fragment>
-        
+        {detailsP !== null && detailsP !== undefined?
+        <Gracias details={detailsP} />
+        :
+        <React.Fragment>
         <Card style={{ margin: '.5rem' }}>
             <Card.Title>
               <h2>Resumen de tu pedido</h2>
@@ -58,7 +93,7 @@ export const Pago: React.FC =()=>{
                 <h5>Resumen de productos y servicios</h5>
                 <ul>
                 {carro !== undefined && carro !== null?carro.map((items:any,index:any)=>{
-                    return <li key={index} style={{ listStyle:'none' }}>
+                  return <li key={index} style={{ listStyle:'none' }}>
                         {items.short_description}
                     </li>
                 }):''}
@@ -80,25 +115,27 @@ export const Pago: React.FC =()=>{
                 <PayPalButton
                 amount={dataCarro.total.toFixed(2)}
                 // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-        
-                onSuccess={(details:any, data:any) => {
-                    alert("Transaction completed by " + details.payer.name.given_name);
-          
-                    // OPTIONAL: Call your server to save the transaction
-                    return fetch("/paypal-transaction-complete", {
-                      method: "post",
-                      body: JSON.stringify({
-                        orderID: data.orderID
-                      })
-                    });
-                  }}
-               
-              />
                 
-            :''}
+                onSuccess={(details:any, data:any) => {
+                  setDetailsP(details)
+                  addOrder(details)
+                  // OPTIONAL: Call your server to save the transaction
+                  return fetch("/paypal-transaction-complete", {
+                    method: "post",
+                    body: JSON.stringify({
+                      orderID: data.orderID
+                    })
+                  });
+                }}
+                
+                />
+                
+                :''}
                 
               </Col>
             </Row>
         </Card>
+        </React.Fragment>
+      }
     </React.Fragment>
 }

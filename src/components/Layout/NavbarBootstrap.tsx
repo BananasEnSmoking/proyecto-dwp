@@ -93,7 +93,7 @@ async function clearCarrito() {
          {localStorage.token !== null && localStorage.token !== undefined?
          <Button onClick={closeSession}>Log out</Button>
          :''}
-         {customer.first_name !== null && customer.first_name !== undefined?<Nav style={{ color:"#f3d75a" }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Welcome&nbsp;{customer.first_name}&nbsp;&nbsp;&nbsp;</Nav>:<Nav.Link as={Link} to="/login">Login</Nav.Link>}
+         {customer.first_name !== null && customer.first_name !== undefined?<Link to="/order"><Nav style={{ color:"#f3d75a" }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Welcome&nbsp;{customer.first_name}&nbsp;&nbsp;&nbsp;</Nav></Link>:<Nav.Link as={Link} to="/login">Login</Nav.Link>}
 
          {localStorage.token !== null && localStorage.token !== undefined?
          <Link to="/showCarrito">
